@@ -1,0 +1,4850 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>MBU Data Science Digital Library</title>
+
+
+    <style>
+
+        /* =====================================================
+           GLOBAL
+        ===================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        :root {
+
+            --primary: #173b7a;
+            --secondary: #2563eb;
+            --light-blue: #eef4ff;
+            --background: #f4f7fb;
+            --card: #ffffff;
+            --text: #222222;
+            --muted: #666666;
+            --border: #dfe5ef;
+            --success: #16a34a;
+            --danger: #dc2626;
+
+        }
+
+
+        body {
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background: var(--background);
+
+            color: var(--text);
+
+            transition:
+                background 0.3s,
+                color 0.3s;
+
+        }
+
+
+        a {
+            text-decoration: none;
+        }
+
+
+        button {
+            font-family: inherit;
+        }
+
+
+        /* =====================================================
+           DARK MODE
+        ===================================================== */
+
+        body.dark {
+
+            --background: #101827;
+            --card: #172235;
+            --text: #f3f4f6;
+            --muted: #b7c0cf;
+            --border: #334155;
+            --light-blue: #182943;
+
+        }
+
+
+        /* =====================================================
+           TOP HEADER
+        ===================================================== */
+
+        header {
+
+            background: white;
+
+            text-align: center;
+
+            padding: 25px 20px;
+
+            border-bottom:
+                4px solid var(--primary);
+
+            position: relative;
+
+        }
+
+
+        header img {
+
+            width: 110px;
+
+            height: 110px;
+
+            object-fit: contain;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        header h1 {
+
+            color: var(--primary);
+
+            font-size: 32px;
+
+            margin-bottom: 5px;
+
+        }
+
+
+        header h2 {
+
+            color: #333;
+
+            font-size: 21px;
+
+            margin-bottom: 5px;
+
+        }
+
+
+        header h3 {
+
+            color: #555;
+
+            font-size: 18px;
+
+            font-weight: normal;
+
+        }
+
+
+        /* =====================================================
+           DARK MODE HEADER
+        ===================================================== */
+
+        body.dark header {
+
+            background: #172235;
+
+        }
+
+
+        body.dark header h2,
+        body.dark header h3 {
+
+            color: #ddd;
+
+        }
+
+
+        /* =====================================================
+           NAVIGATION
+        ===================================================== */
+
+        nav {
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #173b7a,
+                    #2563eb
+                );
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 1000;
+
+            box-shadow:
+                0 3px 12px rgba(0,0,0,0.15);
+
+        }
+
+
+        nav ul {
+
+            list-style: none;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            flex-wrap: wrap;
+
+        }
+
+
+        nav li a {
+
+            display: block;
+
+            color: white;
+
+            padding: 15px 18px;
+
+            font-size: 15px;
+
+            transition: 0.3s;
+
+        }
+
+
+        nav li a:hover {
+
+            background:
+                rgba(255,255,255,0.15);
+
+        }
+
+
+        .theme-button {
+
+            border: none;
+
+            background: rgba(255,255,255,0.15);
+
+            color: white;
+
+            padding: 9px 13px;
+
+            border-radius: 20px;
+
+            cursor: pointer;
+
+            margin: 5px;
+
+        }
+
+
+        /* =====================================================
+           SEARCH
+        ===================================================== */
+
+        .search-area {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #173b7a,
+                    #2563eb
+                );
+
+            padding: 25px;
+
+            text-align: center;
+
+        }
+
+
+        .search-box {
+
+            max-width: 750px;
+
+            margin: auto;
+
+            display: flex;
+
+            background: white;
+
+            border-radius: 35px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 5px 20px rgba(0,0,0,0.15);
+
+        }
+
+
+        .search-box input {
+
+            flex: 1;
+
+            border: none;
+
+            outline: none;
+
+            padding: 15px 20px;
+
+            font-size: 16px;
+
+        }
+
+
+        .search-box button {
+
+            border: none;
+
+            background: var(--primary);
+
+            color: white;
+
+            padding: 0 25px;
+
+            cursor: pointer;
+
+        }
+
+
+        /* =====================================================
+           COMMON SECTIONS
+        ===================================================== */
+
+        section {
+
+            padding: 55px 7%;
+
+        }
+
+
+        .section-title {
+
+            text-align: center;
+
+            color: var(--primary);
+
+            font-size: 30px;
+
+            margin-bottom: 30px;
+
+        }
+
+
+        body.dark .section-title {
+
+            color: #7fb0ff;
+
+        }
+
+
+        /* =====================================================
+           HERO
+        ===================================================== */
+
+        #home {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #eef4ff,
+                    #ffffff
+                );
+
+        }
+
+
+        body.dark #home {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #16253d,
+                    #101827
+                );
+
+        }
+
+
+        .hero {
+
+            max-width: 1200px;
+
+            margin: auto;
+
+            display: grid;
+
+            grid-template-columns:
+                1.5fr 1fr;
+
+            gap: 30px;
+
+            align-items: center;
+
+        }
+
+
+        .hero-text h2 {
+
+            font-size: 40px;
+
+            color: var(--primary);
+
+            margin-bottom: 15px;
+
+        }
+
+
+        body.dark .hero-text h2 {
+
+            color: #8bb7ff;
+
+        }
+
+
+        .hero-text p {
+
+            font-size: 18px;
+
+            line-height: 1.7;
+
+            color: var(--muted);
+
+        }
+
+
+        .welcome-tag {
+
+            display: inline-block;
+
+            background: #dbeafe;
+
+            color: #173b7a;
+
+            padding: 7px 14px;
+
+            border-radius: 20px;
+
+            margin-bottom: 15px;
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+        }
+
+
+        /* =====================================================
+           STUDENT CARD
+        ===================================================== */
+
+        .student-card {
+
+            background: var(--card);
+
+            padding: 25px;
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 8px 30px rgba(0,0,0,0.12);
+
+            text-align: center;
+
+        }
+
+
+        .student-card img {
+
+            width: 125px;
+
+            height: 145px;
+
+            object-fit: cover;
+
+            border-radius: 12px;
+
+            border:
+                4px solid var(--primary);
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .student-card h3 {
+
+            color: var(--primary);
+
+            margin-bottom: 15px;
+
+        }
+
+
+        body.dark .student-card h3 {
+
+            color: #8bb7ff;
+
+        }
+
+
+        .student-info {
+
+            text-align: left;
+
+        }
+
+
+        .student-info p {
+
+            padding: 7px 0;
+
+            border-bottom:
+                1px solid var(--border);
+
+            color: var(--muted);
+
+        }
+
+
+        .student-info strong {
+
+            color: var(--text);
+
+        }
+
+
+        /* =====================================================
+           DASHBOARD
+        ===================================================== */
+
+        .dashboard {
+
+            max-width: 1200px;
+
+            margin: 30px auto 0;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 18px;
+
+        }
+
+
+        .stat-card {
+
+            background: var(--card);
+
+            padding: 22px;
+
+            border-radius: 15px;
+
+            box-shadow:
+                0 5px 18px rgba(0,0,0,0.08);
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 15px;
+
+            transition: 0.3s;
+
+        }
+
+
+        .stat-card:hover {
+
+            transform:
+                translateY(-5px);
+
+        }
+
+
+        .stat-icon {
+
+            width: 55px;
+
+            height: 55px;
+
+            border-radius: 14px;
+
+            background: #dbeafe;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 28px;
+
+        }
+
+
+        .stat-card h3 {
+
+            color: var(--primary);
+
+            font-size: 25px;
+
+        }
+
+
+        body.dark .stat-card h3 {
+
+            color: #8bb7ff;
+
+        }
+
+
+        .stat-card p {
+
+            color: var(--muted);
+
+            font-size: 14px;
+
+        }
+
+
+        /* =====================================================
+           QUICK ACCESS
+        ===================================================== */
+
+        #quick {
+
+            background: white;
+
+        }
+
+
+        body.dark #quick {
+
+            background: #101827;
+
+        }
+
+
+        .quick-grid {
+
+            max-width: 1100px;
+
+            margin: auto;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 20px;
+
+        }
+
+
+        .quick-card {
+
+            padding: 25px;
+
+            border-radius: 15px;
+
+            background: var(--card);
+
+            border:
+                1px solid var(--border);
+
+            text-align: center;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+
+        }
+
+
+        .quick-card:hover {
+
+            transform:
+                translateY(-7px);
+
+            box-shadow:
+                0 10px 25px rgba(0,0,0,0.1);
+
+        }
+
+
+        .quick-card .icon {
+
+            font-size: 38px;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .quick-card h3 {
+
+            color: var(--primary);
+
+            margin-bottom: 7px;
+
+        }
+
+
+        body.dark .quick-card h3 {
+
+            color: #8bb7ff;
+
+        }
+
+
+        .quick-card p {
+
+            color: var(--muted);
+
+            font-size: 14px;
+
+        }
+
+
+        /* =====================================================
+           PROGRESS
+        ===================================================== */
+
+        .progress-section {
+
+            max-width: 1000px;
+
+            margin: auto;
+
+            background: var(--card);
+
+            padding: 30px;
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 5px 20px rgba(0,0,0,0.08);
+
+        }
+
+
+        .progress-item {
+
+            margin-bottom: 22px;
+
+        }
+
+
+        .progress-label {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            margin-bottom: 8px;
+
+            font-weight: bold;
+
+        }
+
+
+        .progress-bar {
+
+            height: 12px;
+
+            background: #e5e7eb;
+
+            border-radius: 20px;
+
+            overflow: hidden;
+
+        }
+
+
+        .progress-fill {
+
+            height: 100%;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #173b7a,
+                    #3b82f6
+                );
+
+            border-radius: 20px;
+
+        }
+
+
+        /* =====================================================
+           NOTICE
+        ===================================================== */
+
+        .notice {
+
+            max-width: 1000px;
+
+            margin: 0 auto 30px;
+
+            background: #fff7ed;
+
+            border-left:
+                5px solid #f97316;
+
+            padding: 18px 20px;
+
+            border-radius: 10px;
+
+        }
+
+
+        .notice strong {
+
+            color: #c2410c;
+
+        }
+
+
+        body.dark .notice {
+
+            background: #3b281b;
+
+        }
+
+
+        /* =====================================================
+           CARDS
+        ===================================================== */
+
+        .card-container {
+
+            max-width: 1200px;
+
+            margin: auto;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(230px, 1fr));
+
+            gap: 22px;
+
+        }
+
+
+        .card {
+
+            background: var(--card);
+
+            padding: 25px;
+
+            border-radius: 15px;
+
+            border:
+                1px solid var(--border);
+
+            box-shadow:
+                0 5px 18px rgba(0,0,0,0.07);
+
+            transition: 0.3s;
+
+            position: relative;
+
+        }
+
+
+        .card:hover {
+
+            transform:
+                translateY(-5px);
+
+            box-shadow:
+                0 10px 25px rgba(0,0,0,0.12);
+
+        }
+
+
+        .card h3 {
+
+            color: var(--primary);
+
+            margin-bottom: 12px;
+
+        }
+
+
+        body.dark .card h3 {
+
+            color: #8bb7ff;
+
+        }
+
+
+        .card p {
+
+            color: var(--muted);
+
+            line-height: 1.6;
+
+            margin-bottom: 15px;
+
+        }
+
+
+        /* =====================================================
+           BUTTON
+        ===================================================== */
+
+        .btn {
+
+            display: inline-block;
+
+            border: none;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #173b7a,
+                    #2563eb
+                );
+
+            color: white;
+
+            padding: 10px 17px;
+
+            border-radius: 7px;
+
+            cursor: pointer;
+
+            font-size: 14px;
+
+            transition: 0.3s;
+
+        }
+
+
+        .btn:hover {
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 5px 12px rgba(37,99,235,0.3);
+
+        }
+
+
+        /* =====================================================
+           MODULE SEARCH
+        ===================================================== */
+
+        .filter-box {
+
+            max-width: 600px;
+
+            margin:
+                0 auto 30px;
+
+        }
+
+
+        .filter-box input {
+
+            width: 100%;
+
+            padding: 14px 18px;
+
+            border-radius: 10px;
+
+            border:
+                1px solid var(--border);
+
+            background: var(--card);
+
+            color: var(--text);
+
+            outline: none;
+
+            font-size: 15px;
+
+        }
+
+
+        /* =====================================================
+           FAVORITE
+        ===================================================== */
+
+        .favorite {
+
+            position: absolute;
+
+            top: 15px;
+
+            right: 15px;
+
+            background: none;
+
+            border: none;
+
+            font-size: 22px;
+
+            cursor: pointer;
+
+        }
+
+
+        /* =====================================================
+           TOOLS
+        ===================================================== */
+
+        #tools {
+
+            background: var(--light-blue);
+
+        }
+
+
+        .tool-card {
+
+            text-align: center;
+
+        }
+
+
+        .tool-icon {
+
+            font-size: 45px;
+
+            margin-bottom: 12px;
+
+        }
+
+
+        /* =====================================================
+           CALCULATOR
+        ===================================================== */
+
+        .calculator {
+
+            max-width: 350px;
+
+            margin: auto;
+
+            background: #111827;
+
+            padding: 20px;
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 10px 30px rgba(0,0,0,0.2);
+
+        }
+
+
+        .calc-display {
+
+            width: 100%;
+
+            height: 65px;
+
+            margin-bottom: 15px;
+
+            background: #1f2937;
+
+            color: white;
+
+            border: none;
+
+            border-radius: 10px;
+
+            text-align: right;
+
+            padding: 10px;
+
+            font-size: 25px;
+
+        }
+
+
+        .calc-buttons {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4,1fr);
+
+            gap: 8px;
+
+        }
+
+
+        .calc-buttons button {
+
+            height: 50px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            cursor: pointer;
+
+            font-size: 17px;
+
+        }
+
+
+        /* =====================================================
+           STUDY TIMER
+        ===================================================== */
+
+        .timer {
+
+            max-width: 400px;
+
+            margin: auto;
+
+            text-align: center;
+
+            background: var(--card);
+
+            padding: 30px;
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 5px 20px rgba(0,0,0,0.08);
+
+        }
+
+
+        .timer-display {
+
+            font-size: 55px;
+
+            font-weight: bold;
+
+            color: var(--primary);
+
+            margin: 20px 0;
+
+        }
+
+
+        body.dark .timer-display {
+
+            color: #8bb7ff;
+
+        }
+
+
+        /* =====================================================
+           TODO
+        ===================================================== */
+
+        .todo {
+
+            max-width: 700px;
+
+            margin: auto;
+
+            background: var(--card);
+
+            padding: 25px;
+
+            border-radius: 18px;
+
+        }
+
+
+        .todo-input {
+
+            display: flex;
+
+            gap: 10px;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .todo-input input {
+
+            flex: 1;
+
+            padding: 12px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 8px;
+
+            background: var(--card);
+
+            color: var(--text);
+
+            outline: none;
+
+        }
+
+
+        #taskList {
+
+            list-style: none;
+
+        }
+
+
+        #taskList li {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            padding: 12px;
+
+            border-bottom:
+                1px solid var(--border);
+
+        }
+
+
+        #taskList li button {
+
+            border: none;
+
+            background: var(--danger);
+
+            color: white;
+
+            padding: 5px 8px;
+
+            border-radius: 5px;
+
+            cursor: pointer;
+
+        }
+
+
+        /* =====================================================
+           NOTES
+        ===================================================== */
+
+        .notes-box {
+
+            max-width: 800px;
+
+            margin: auto;
+
+        }
+
+
+        .notes-box textarea {
+
+            width: 100%;
+
+            min-height: 220px;
+
+            padding: 18px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 12px;
+
+            resize: vertical;
+
+            background: var(--card);
+
+            color: var(--text);
+
+            outline: none;
+
+            font-size: 15px;
+
+        }
+
+
+        /* =====================================================
+           LAB
+        ===================================================== */
+
+        #lab {
+
+            background: white;
+
+        }
+
+
+        body.dark #lab {
+
+            background: #101827;
+
+        }
+
+
+        .experiment-number {
+
+            position: absolute;
+
+            top: 15px;
+
+            right: 15px;
+
+            background: var(--primary);
+
+            color: white;
+
+            padding: 5px 9px;
+
+            border-radius: 15px;
+
+            font-size: 11px;
+
+        }
+
+
+        /* =====================================================
+           EXPERIMENT VIEWER
+        ===================================================== */
+
+        #experimentViewer {
+
+            display: none;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #eef4ff,
+                    #ffffff
+                );
+
+        }
+
+
+        .experiment-box {
+
+            max-width: 1100px;
+
+            margin: auto;
+
+            background: var(--card);
+
+            padding: 30px;
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 8px 25px rgba(0,0,0,0.1);
+
+        }
+
+
+        .experiment-box h2 {
+
+            color: var(--primary);
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .experiment-box h3 {
+
+            color: var(--primary);
+
+            margin-top: 25px;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        body.dark .experiment-box h2,
+        body.dark .experiment-box h3 {
+
+            color: #8bb7ff;
+
+        }
+
+
+        pre {
+
+            background: #111827;
+
+            color: #f3f4f6;
+
+            padding: 20px;
+
+            border-radius: 10px;
+
+            overflow-x: auto;
+
+            line-height: 1.5;
+
+            margin-top: 10px;
+
+        }
+
+
+        .output {
+
+            background: #f1f5f9;
+
+            color: #222;
+
+            padding: 18px;
+
+            border-radius: 10px;
+
+            margin-top: 10px;
+
+            white-space: pre-wrap;
+
+            font-family: monospace;
+
+        }
+
+
+        body.dark .output {
+
+            background: #263449;
+
+            color: #f3f4f6;
+
+        }
+
+
+        /* =====================================================
+           SUB EXPERIMENTS
+        ===================================================== */
+
+        .subexperiment-menu {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit,minmax(220px,1fr));
+
+            gap: 12px;
+
+            margin-top: 20px;
+
+        }
+
+
+        .subexperiment-btn {
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #173b7a,
+                    #2563eb
+                );
+
+            color: white;
+
+            border: none;
+
+            padding: 14px;
+
+            border-radius: 8px;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+
+        }
+
+
+        .subexperiment-btn:hover {
+
+            transform:
+                translateY(-2px);
+
+        }
+
+
+        .subexperiment-content {
+
+            display: none;
+
+            margin-top: 25px;
+
+            padding: 25px;
+
+            background: var(--light-blue);
+
+            border-left:
+                5px solid var(--primary);
+
+            border-radius: 10px;
+
+        }
+
+
+        .subexperiment-content.active {
+
+            display: block;
+
+        }
+
+
+        /* =====================================================
+           RESOURCES
+        ===================================================== */
+
+        .resource-grid {
+
+            max-width: 1100px;
+
+            margin: auto;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit,minmax(220px,1fr));
+
+            gap: 20px;
+
+        }
+
+
+        .resource {
+
+            background: var(--card);
+
+            border:
+                1px solid var(--border);
+
+            padding: 25px;
+
+            border-radius: 15px;
+
+            text-align: center;
+
+            transition: 0.3s;
+
+        }
+
+
+        .resource:hover {
+
+            transform:
+                translateY(-5px);
+
+        }
+
+
+        .resource-icon {
+
+            font-size: 40px;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .resource h3 {
+
+            color: var(--primary);
+
+            margin-bottom: 10px;
+
+        }
+
+
+        body.dark .resource h3 {
+
+            color: #8bb7ff;
+
+        }
+
+
+        .resource p {
+
+            color: var(--muted);
+
+            margin-bottom: 15px;
+
+            line-height: 1.5;
+
+        }
+
+
+        /* =====================================================
+           ABOUT
+        ===================================================== */
+
+        #about {
+
+            background: var(--light-blue);
+
+        }
+
+
+        .about-box {
+
+            max-width: 1000px;
+
+            margin: auto;
+
+            background: var(--card);
+
+            padding: 30px;
+
+            border-radius: 18px;
+
+            line-height: 1.8;
+
+            color: var(--muted);
+
+        }
+
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+
+        footer {
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #102d61,
+                    #173b7a
+                );
+
+            color: white;
+
+            text-align: center;
+
+            padding: 30px;
+
+        }
+
+
+        footer p {
+
+            margin: 7px;
+
+        }
+
+
+        /* =====================================================
+           BACK TO TOP
+        ===================================================== */
+
+        #topButton {
+
+            position: fixed;
+
+            bottom: 25px;
+
+            right: 25px;
+
+            width: 45px;
+
+            height: 45px;
+
+            border: none;
+
+            border-radius: 50%;
+
+            background: var(--primary);
+
+            color: white;
+
+            cursor: pointer;
+
+            font-size: 20px;
+
+            display: none;
+
+            z-index: 999;
+
+        }
+
+
+        /* =====================================================
+           DIGITAL CLOCK
+        ===================================================== */
+
+        #clock {
+
+            font-size: 14px;
+
+            color: var(--muted);
+
+            margin-top: 8px;
+
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media(max-width:900px) {
+
+            .hero {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .dashboard {
+
+                grid-template-columns:
+                    repeat(2,1fr);
+
+            }
+
+
+            .quick-grid {
+
+                grid-template-columns:
+                    repeat(2,1fr);
+
+            }
+
+        }
+
+
+        @media(max-width:600px) {
+
+            header h1 {
+
+                font-size: 24px;
+
+            }
+
+
+            header h2 {
+
+                font-size: 18px;
+
+            }
+
+
+            header h3 {
+
+                font-size: 16px;
+
+            }
+
+
+            nav ul {
+
+                flex-direction: column;
+
+            }
+
+
+            nav li {
+
+                width: 100%;
+
+                text-align: center;
+
+            }
+
+
+            .hero-text h2 {
+
+                font-size: 29px;
+
+            }
+
+
+            .dashboard {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .quick-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            section {
+
+                padding:
+                    40px 5%;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header>
+
+    <img src="mbu-logo.jpg"
+         alt="Mohan Babu University Logo">
+
+    <h1>MOHAN BABU UNIVERSITY</h1>
+
+    <h2>Sub: Data Science</h2>
+
+    <h3>Digital Library</h3>
+
+    <div id="clock"></div>
+
+</header>
+
+
+<!-- =========================================================
+     NAVIGATION
+========================================================= -->
+
+<nav>
+
+    <ul>
+
+        <li>
+            <a href="#home">🏠 Home</a>
+        </li>
+
+        <li>
+            <a href="#modules">📚 Modules</a>
+        </li>
+
+        <li>
+            <a href="#tools">🛠 Tools</a>
+        </li>
+
+        <li>
+            <a href="#lab">🧪 Lab</a>
+        </li>
+
+        <li>
+            <a href="#resources">📖 Resources</a>
+        </li>
+
+        <li>
+            <a href="#notes">📝 Notes</a>
+        </li>
+
+        <li>
+            <a href="#about">ℹ️ About</a>
+        </li>
+
+        <li>
+
+            <button
+                class="theme-button"
+                onclick="toggleDarkMode()">
+
+                🌙 Dark Mode
+
+            </button>
+
+        </li>
+
+    </ul>
+
+</nav>
+
+
+<!-- =========================================================
+     GLOBAL SEARCH
+========================================================= -->
+
+<div class="search-area">
+
+    <div class="search-box">
+
+        <input
+            type="text"
+            id="globalSearch"
+            placeholder="🔍 Search modules, experiments, tools..."
+            onkeyup="globalSearchFunction()">
+
+        <button onclick="globalSearchFunction()">
+            Search
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     HOME
+========================================================= -->
+
+<section id="home">
+
+    <div class="hero">
+
+
+        <!-- LEFT -->
+
+        <div class="hero-text">
+
+            <span class="welcome-tag">
+                🎓 Student Digital Portal
+            </span>
+
+            <h2>
+                Welcome, Bhuvaneswari 👋
+            </h2>
+
+            <p>
+
+                Your personal Data Science Digital Library
+                for accessing modules, laboratory experiments,
+                study tools, notes and useful resources.
+
+            </p>
+
+            <br>
+
+            <a
+                href="#modules"
+                class="btn">
+
+                🚀 Start Learning
+
+            </a>
+
+        </div>
+
+
+        <!-- RIGHT -->
+
+        <div class="student-card">
+
+            <img
+                src="id-card.jpg"
+                alt="Student Photo">
+
+            <h3>
+                Student Profile
+            </h3>
+
+
+            <div class="student-info">
+
+                <p>
+                    <strong>Name:</strong>
+                    S. Bhuvaneswari
+                </p>
+
+                <p>
+                    <strong>ID:</strong>
+                    24102A030119
+                </p>
+
+                <p>
+                    <strong>Section:</strong>
+                    DS-2
+                </p>
+
+                <p>
+                    <strong>Department:</strong>
+                    Data Science
+                </p>
+
+                <p>
+                    <strong>Degree:</strong>
+                    B.Tech
+                </p>
+
+                <p>
+                    <strong>Faculty:</strong>
+                    S. Bosubabu
+                </p>
+
+                <p>
+                    <strong>Designation:</strong>
+                    Assistant Professor
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- DASHBOARD -->
+
+    <div class="dashboard">
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                📚
+            </div>
+
+            <div>
+
+                <h3>5</h3>
+
+                <p>Modules</p>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                🧪
+            </div>
+
+            <div>
+
+                <h3>10</h3>
+
+                <p>Experiments</p>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                🛠️
+            </div>
+
+            <div>
+
+                <h3>8+</h3>
+
+                <p>Study Tools</p>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                ⭐
+            </div>
+
+            <div>
+
+                <h3 id="favoriteCount">
+                    0
+                </h3>
+
+                <p>Favorites</p>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     QUICK ACCESS
+========================================================= -->
+
+<section id="quick">
+
+    <h2 class="section-title">
+        ⚡ Quick Access
+    </h2>
+
+
+    <div class="quick-grid">
+
+
+        <div
+            class="quick-card"
+            onclick="location.href='#modules'">
+
+            <div class="icon">
+                📚
+            </div>
+
+            <h3>
+                Modules
+            </h3>
+
+            <p>
+                Open your study modules
+            </p>
+
+        </div>
+
+
+        <div
+            class="quick-card"
+            onclick="location.href='#lab'">
+
+            <div class="icon">
+                🧪
+            </div>
+
+            <h3>
+                Laboratory
+            </h3>
+
+            <p>
+                View practical experiments
+            </p>
+
+        </div>
+
+
+        <div
+            class="quick-card"
+            onclick="location.href='#tools'">
+
+            <div class="icon">
+                🧮
+            </div>
+
+            <h3>
+                Study Tools
+            </h3>
+
+            <p>
+                Calculator and timer
+            </p>
+
+        </div>
+
+
+        <div
+            class="quick-card"
+            onclick="location.href='#notes'">
+
+            <div class="icon">
+                📝
+            </div>
+
+            <h3>
+                My Notes
+            </h3>
+
+            <p>
+                Write and save notes
+            </p>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     PROGRESS
+========================================================= -->
+
+<section>
+
+    <h2 class="section-title">
+        📈 My Learning Progress
+    </h2>
+
+
+    <div class="progress-section">
+
+
+        <div class="progress-item">
+
+            <div class="progress-label">
+
+                <span>
+                    📚 Modules
+                </span>
+
+                <span>
+                    80%
+                </span>
+
+            </div>
+
+            <div class="progress-bar">
+
+                <div
+                    class="progress-fill"
+                    style="width:80%">
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="progress-item">
+
+            <div class="progress-label">
+
+                <span>
+                    🧪 Laboratory
+                </span>
+
+                <span>
+                    60%
+                </span>
+
+            </div>
+
+            <div class="progress-bar">
+
+                <div
+                    class="progress-fill"
+                    style="width:60%">
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="progress-item">
+
+            <div class="progress-label">
+
+                <span>
+                    💻 Programming
+                </span>
+
+                <span>
+                    70%
+                </span>
+
+            </div>
+
+            <div class="progress-bar">
+
+                <div
+                    class="progress-fill"
+                    style="width:70%">
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="progress-item">
+
+            <div class="progress-label">
+
+                <span>
+                    🎯 Overall
+                </span>
+
+                <span>
+                    70%
+                </span>
+
+            </div>
+
+            <div class="progress-bar">
+
+                <div
+                    class="progress-fill"
+                    style="width:70%">
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     NOTICE
+========================================================= -->
+
+<section>
+
+    <div class="notice">
+
+        <strong>
+            📢 Digital Library Notice:
+        </strong>
+
+        Use this portal to organize your Data Science
+        modules, laboratory programs, notes and study resources.
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     MODULES
+========================================================= -->
+
+<section id="modules">
+
+    <h2 class="section-title">
+        📚 Learning Modules
+    </h2>
+
+
+    <div class="filter-box">
+
+        <input
+            type="text"
+            id="moduleSearch"
+            placeholder="🔍 Search modules..."
+            onkeyup="filterModules()">
+
+    </div>
+
+
+    <div
+        class="card-container"
+        id="moduleContainer">
+
+
+        <!-- MODULE 1 -->
+
+        <div class="card module-card">
+
+            <button
+                class="favorite"
+                onclick="favorite(this)"
+                title="Add to favorites">
+
+                ☆
+
+            </button>
+
+            <h3>
+                Module 1
+            </h3>
+
+            <p>
+                Data Science fundamentals and
+                basic concepts.
+            </p>
+
+            <a
+                href="module1.pdf"
+                target="_blank"
+                class="btn">
+
+                📖 Open Module
+
+            </a>
+
+        </div>
+
+
+        <!-- MODULE 2 -->
+
+        <div class="card module-card">
+
+            <button
+                class="favorite"
+                onclick="favorite(this)">
+
+                ☆
+
+            </button>
+
+            <h3>
+                Module 2
+            </h3>
+
+            <p>
+                Data processing, analysis and
+                visualization concepts.
+            </p>
+
+            <a
+                href="module2.pdf"
+                target="_blank"
+                class="btn">
+
+                📖 Open Module
+
+            </a>
+
+        </div>
+
+
+        <!-- MODULE 3 -->
+
+        <div class="card module-card">
+
+            <button
+                class="favorite"
+                onclick="favorite(this)">
+
+                ☆
+
+            </button>
+
+            <h3>
+                Module 3
+            </h3>
+
+            <p>
+                Statistical and analytical
+                methods.
+            </p>
+
+            <a
+                href="module3.pdf"
+                target="_blank"
+                class="btn">
+
+                📖 Open Module
+
+            </a>
+
+        </div>
+
+
+        <!-- MODULE 4 -->
+
+        <div class="card module-card">
+
+            <button
+                class="favorite"
+                onclick="favorite(this)">
+
+                ☆
+
+            </button>
+
+            <h3>
+                Module 4
+            </h3>
+
+            <p>
+                Machine Learning and
+                predictive analysis.
+            </p>
+
+            <a
+                href="module4.pdf"
+                target="_blank"
+                class="btn">
+
+                📖 Open Module
+
+            </a>
+
+        </div>
+
+
+        <!-- MODULE 5 -->
+
+        <div class="card module-card">
+
+            <button
+                class="favorite"
+                onclick="favorite(this)">
+
+                ☆
+
+            </button>
+
+            <h3>
+                Module 5
+            </h3>
+
+            <p>
+                Advanced Data Science
+                concepts and applications.
+            </p>
+
+            <a
+                href="module5.pdf"
+                target="_blank"
+                class="btn">
+
+                📖 Open Module
+
+            </a>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     TOOLS
+========================================================= -->
+
+<section id="tools">
+
+    <h2 class="section-title">
+        🛠️ Study Tools
+    </h2>
+
+
+    <div class="card-container">
+
+
+        <div class="card tool-card">
+
+            <div class="tool-icon">
+                🧮
+            </div>
+
+            <h3>
+                Calculator
+            </h3>
+
+            <p>
+                Perform basic calculations
+                without leaving the portal.
+            </p>
+
+            <button
+                class="btn"
+                onclick="showCalculator()">
+
+                Open Calculator
+
+            </button>
+
+        </div>
+
+
+        <div class="card tool-card">
+
+            <div class="tool-icon">
+                ⏱️
+            </div>
+
+            <h3>
+                Study Timer
+            </h3>
+
+            <p>
+                Use a simple timer for
+                focused study sessions.
+            </p>
+
+            <button
+                class="btn"
+                onclick="document.getElementById('timerSection').scrollIntoView()">
+
+                Start Timer
+
+            </button>
+
+        </div>
+
+
+        <div class="card tool-card">
+
+            <div class="tool-icon">
+                💻
+            </div>
+
+            <h3>
+                Java Compiler
+            </h3>
+
+            <p>
+                Practice Java programming
+                online.
+            </p>
+
+            <a
+                href="https://www.jdoodle.com/online-java-compiler"
+                target="_blank"
+                class="btn">
+
+                Open
+
+            </a>
+
+        </div>
+
+
+        <div class="card tool-card">
+
+            <div class="tool-icon">
+                🗄️
+            </div>
+
+            <h3>
+                SQL Learning
+            </h3>
+
+            <p>
+                Learn and practice SQL
+                queries.
+            </p>
+
+            <a
+                href="https://www.w3schools.com/sql/"
+                target="_blank"
+                class="btn">
+
+                Open
+
+            </a>
+
+        </div>
+
+
+        <div class="card tool-card">
+
+            <div class="tool-icon">
+                🔗
+            </div>
+
+            <h3>
+                GitHub
+            </h3>
+
+            <p>
+                Manage your coding projects
+                and repositories.
+            </p>
+
+            <a
+                href="https://github.com/suravarapubhuvana04-cmyk"
+                target="_blank"
+                class="btn">
+
+                My GitHub
+
+            </a>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- CALCULATOR -->
+
+    <div
+        id="calculatorSection"
+        style="display:none; margin-top:40px;">
+
+        <h2 class="section-title">
+            🧮 Calculator
+        </h2>
+
+
+        <div class="calculator">
+
+            <input
+                type="text"
+                id="calcDisplay"
+                class="calc-display"
+                readonly>
+
+
+            <div class="calc-buttons">
+
+                <button onclick="clearCalc()">
+                    C
+                </button>
+
+                <button onclick="deleteCalc()">
+                    DEL
+                </button>
+
+                <button onclick="addCalc('/')">
+                    ÷
+                </button>
+
+                <button onclick="addCalc('*')">
+                    ×
+                </button>
+
+
+                <button onclick="addCalc('7')">
+                    7
+                </button>
+
+                <button onclick="addCalc('8')">
+                    8
+                </button>
+
+                <button onclick="addCalc('9')">
+                    9
+                </button>
+
+                <button onclick="addCalc('-')">
+                    −
+                </button>
+
+
+                <button onclick="addCalc('4')">
+                    4
+                </button>
+
+                <button onclick="addCalc('5')">
+                    5
+                </button>
+
+                <button onclick="addCalc('6')">
+                    6
+                </button>
+
+                <button onclick="addCalc('+')">
+                    +
+                </button>
+
+
+                <button onclick="addCalc('1')">
+                    1
+                </button>
+
+                <button onclick="addCalc('2')">
+                    2
+                </button>
+
+                <button onclick="addCalc('3')">
+                    3
+                </button>
+
+                <button onclick="calculate()">
+                    =
+                </button>
+
+
+                <button onclick="addCalc('0')">
+                    0
+                </button>
+
+                <button onclick="addCalc('.')">
+                    .
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     TIMER
+========================================================= -->
+
+<section id="timerSection">
+
+    <h2 class="section-title">
+        ⏱️ Study Timer
+    </h2>
+
+
+    <div class="timer">
+
+        <p>
+            Focus on your studies for 25 minutes.
+        </p>
+
+
+        <div
+            class="timer-display"
+            id="timerDisplay">
+
+            25:00
+
+        </div>
+
+
+        <button
+            class="btn"
+            onclick="startTimer()">
+
+            ▶ Start
+
+        </button>
+
+
+        <button
+            class="btn"
+            onclick="pauseTimer()">
+
+            ⏸ Pause
+
+        </button>
+
+
+        <button
+            class="btn"
+            onclick="resetTimer()">
+
+            🔄 Reset
+
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     TODO LIST
+========================================================= -->
+
+<section>
+
+    <h2 class="section-title">
+        ✅ My Study Tasks
+    </h2>
+
+
+    <div class="todo">
+
+        <div class="todo-input">
+
+            <input
+                type="text"
+                id="taskInput"
+                placeholder="Enter your study task...">
+
+            <button
+                class="btn"
+                onclick="addTask()">
+
+                Add
+
+            </button>
+
+        </div>
+
+
+        <ul id="taskList"></ul>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     LABORATORY
+========================================================= -->
+
+<section id="lab">
+
+    <h2 class="section-title">
+        🧪 Data Science Laboratory
+    </h2>
+
+
+    <div class="filter-box">
+
+        <input
+            type="text"
+            id="labSearch"
+            placeholder="🔍 Search experiments..."
+            onkeyup="filterLabs()">
+
+    </div>
+
+
+    <div
+        class="card-container"
+        id="labContainer">
+
+
+        <!-- EXPERIMENT 1 -->
+
+        <div class="card lab-card">
+
+            <span class="experiment-number">
+                EXP 1
+            </span>
+
+            <h3>
+                Experiment 1
+            </h3>
+
+            <p>
+                Introduction to Python and
+                Data Science programming.
+            </p>
+
+            <button
+                class="btn"
+                onclick="showExperiment(1)">
+
+                View Experiment
+
+            </button>
+
+        </div>
+
+
+        <!-- EXPERIMENT 2 -->
+
+        <div class="card lab-card">
+
+            <span class="experiment-number">
+                EXP 2
+            </span>
+
+            <h3>
+                Experiment 2
+            </h3>
+
+            <p>
+                Data manipulation and
+                analysis using Python.
+            </p>
+
+            <button
+                class="btn"
+                onclick="showExperiment(2)">
+
+                View Experiment
+
+            </button>
+
+        </div>
+
+
+        <!-- EXPERIMENT 3 -->
+
+        <div class="card lab-card">
+
+            <span class="experiment-number">
+                EXP 3
+            </span>
+
+            <h3>
+                Experiment 3
+            </h3>
+
+            <p>
+                Data visualization techniques.
+            </p>
+
+            <button
+                class="btn"
+                onclick="showExperiment(3)">
+
+                View Experiment
+
+            </button>
+
+        </div>
+
+
+        <!-- EXPERIMENT 4 -->
+
+        <div class="card lab-card">
+
+            <span class="experiment-number">
+                EXP 4
+            </span>
+
+            <h3>
+                Experiment 4
+            </h3>
+
+            <p>
+                Statistical data analysis.
+            </p>
+
+            <button
+                class="btn"
+                onclick="showExperiment(4)">
+
+                View Experiment
+
+            </button>
+
+        </div>
+
+
+        <!-- EXPERIMENT 5 -->
+
+        <div class="card lab-card">
+
+            <span class="experiment-number">
+                EXP 5
+            </span>
+
+            <h3>
+                Experiment 5
+            </h3>
+
+            <p>
+                Data preprocessing and
+                transformation.
+            </p>
+
+            <button
+                class="btn"
+                onclick="showExperiment(5)">
+
+                View Experiment
+
+            </button>
+
+        </div>
+
+
+        <!-- EXPERIMENT 6 -->
+
+        <div class="card lab-card">
+
+            <span class="experiment-number">
+                EXP 6
+            </span>
+
+            <h3>
+                Experiment 6
+            </h3>
+
+            <p>
+                Time Series Analysis using
+                Python and Pandas.
+            </p>
+
+            <button
+                class="btn"
+                onclick="showExperiment(6)">
+
+                View Experiment
+
+            </button>
+
+        </div>
+
+
+        <!-- EXPERIMENT 7 -->
+
+        <div class="card lab-card">
+
+            <span class="experiment-number">
+                EXP 7
+            </span>
+
+            <h3>
+                Experiment 7
+            </h3>
+
+            <p>
+                Machine Learning data processing.
+            </p>
+
+            <button
+                class="btn"
+                onclick="showExperiment(7)">
+
+                View Experiment
+
+            </button>
+
+        </div>
+
+
+        <!-- EXPERIMENT 8 -->
+
+        <div class="card lab-card">
+
+            <span class="experiment-number">
+                EXP 8
+            </span>
+
+            <h3>
+                Experiment 8
+            </h3>
+
+            <p>
+                Classification techniques.
+            </p>
+
+            <button
+                class="btn"
+                onclick="showExperiment(8)">
+
+                View Experiment
+
+            </button>
+
+        </div>
+
+
+        <!-- EXPERIMENT 9 -->
+
+        <div class="card lab-card">
+
+            <span class="experiment-number">
+                EXP 9
+            </span>
+
+            <h3>
+                Experiment 9
+            </h3>
+
+            <p>
+                Clustering and unsupervised
+                learning.
+            </p>
+
+            <button
+                class="btn"
+                onclick="showExperiment(9)">
+
+                View Experiment
+
+            </button>
+
+        </div>
+
+
+        <!-- EXPERIMENT 10 -->
+
+        <div class="card lab-card">
+
+            <span class="experiment-number">
+                EXP 10
+            </span>
+
+            <h3>
+                Experiment 10
+            </h3>
+
+            <p>
+                Data Science project
+                implementation.
+            </p>
+
+            <button
+                class="btn"
+                onclick="showExperiment(10)">
+
+                View Experiment
+
+            </button>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     EXPERIMENT VIEWER
+========================================================= -->
+
+<section id="experimentViewer">
+
+    <div
+        class="experiment-box"
+        id="experimentContent">
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     RESOURCES
+========================================================= -->
+
+<section id="resources">
+
+    <h2 class="section-title">
+        📖 Digital Library Resources
+    </h2>
+
+
+    <div class="resource-grid">
+
+
+        <div class="resource">
+
+            <div class="resource-icon">
+                📚
+            </div>
+
+            <h3>
+                E-Books
+            </h3>
+
+            <p>
+                Access digital books and
+                study materials.
+            </p>
+
+            <a
+                href="https://idp.mbu.asia/"
+                target="_blank"
+                class="btn">
+
+                Open Resource
+
+            </a>
+
+        </div>
+
+
+        <div class="resource">
+
+            <div class="resource-icon">
+                📄
+            </div>
+
+            <h3>
+                E-Journals
+            </h3>
+
+            <p>
+                Explore electronic journals
+                and research resources.
+            </p>
+
+            <a
+                href="https://idp.mbu.asia/"
+                target="_blank"
+                class="btn">
+
+                Open Resource
+
+            </a>
+
+        </div>
+
+
+        <div class="resource">
+
+            <div class="resource-icon">
+                🔎
+            </div>
+
+            <h3>
+                Library OPAC
+            </h3>
+
+            <p>
+                Find books and other
+                library resources.
+            </p>
+
+            <a
+                href="https://www.mbu.asia/central-library/"
+                target="_blank"
+                class="btn">
+
+                Library
+
+            </a>
+
+        </div>
+
+
+        <div class="resource">
+
+            <div class="resource-icon">
+                🎓
+            </div>
+
+            <h3>
+                Data Science
+            </h3>
+
+            <p>
+                Explore the MBU Data Science
+                department resources.
+            </p>
+
+            <a
+                href="https://www.mbu.asia/school-of-computing/dept-of-data-sciences/"
+                target="_blank"
+                class="btn">
+
+                Open
+
+            </a>
+
+        </div>
+
+
+        <div class="resource">
+
+            <div class="resource-icon">
+                💻
+            </div>
+
+            <h3>
+                Python
+            </h3>
+
+            <p>
+                Practice Python programming
+                for Data Science.
+            </p>
+
+            <a
+                href="https://www.w3schools.com/python/"
+                target="_blank"
+                class="btn">
+
+                Learn
+
+            </a>
+
+        </div>
+
+
+        <div class="resource">
+
+            <div class="resource-icon">
+                📊
+            </div>
+
+            <h3>
+                Pandas
+            </h3>
+
+            <p>
+                Learn data manipulation
+                and analysis.
+            </p>
+
+            <a
+                href="https://pandas.pydata.org/docs/"
+                target="_blank"
+                class="btn">
+
+                Learn
+
+            </a>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     NOTES
+========================================================= -->
+
+<section id="notes">
+
+    <h2 class="section-title">
+        📝 My Personal Notes
+    </h2>
+
+
+    <div class="notes-box">
+
+        <textarea
+            id="notesArea"
+            placeholder="Write your Data Science notes here..."></textarea>
+
+
+        <br><br>
+
+
+        <button
+            class="btn"
+            onclick="saveNotes()">
+
+            💾 Save Notes
+
+        </button>
+
+
+        <button
+            class="btn"
+            onclick="clearNotes()">
+
+            🗑 Clear Notes
+
+        </button>
+
+
+        <p
+            id="notesMessage"
+            style="margin-top:15px; color:green;">
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     ABOUT
+========================================================= -->
+
+<section id="about">
+
+    <h2 class="section-title">
+        ℹ️ About This Digital Library
+    </h2>
+
+
+    <div class="about-box">
+
+        <p>
+
+            This Data Science Digital Library is a
+            student-focused academic portal designed
+            to organize learning materials, laboratory
+            experiments, notes and useful study tools
+            in one place.
+
+        </p>
+
+
+        <br>
+
+
+        <p>
+
+            The portal is designed for easy access to
+            Data Science learning resources and practical
+            programming activities.
+
+        </p>
+
+
+        <br>
+
+
+        <p>
+
+            <strong>
+                Student:
+            </strong>
+
+            S. Bhuvaneswari
+
+        </p>
+
+
+        <p>
+
+            <strong>
+                Department:
+            </strong>
+
+            Data Science
+
+        </p>
+
+
+        <p>
+
+            <strong>
+                University:
+            </strong>
+
+            Mohan Babu University
+
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer>
+
+    <p>
+        <strong>
+            MOHAN BABU UNIVERSITY
+        </strong>
+    </p>
+
+    <p>
+        Sub: Data Science | Digital Library
+    </p>
+
+    <p>
+        Student: S. Bhuvaneswari |
+        ID: 24102A030119
+    </p>
+
+    <p>
+        © 2026 Data Science Digital Library
+    </p>
+
+</footer>
+
+
+<!-- BACK TO TOP -->
+
+<button
+    id="topButton"
+    onclick="window.scrollTo(0,0)">
+
+    ↑
+
+</button>
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<script>
+
+
+/* =========================================================
+   DIGITAL CLOCK
+========================================================= */
+
+function updateClock() {
+
+    const now = new Date();
+
+    const date =
+        now.toLocaleDateString(
+            "en-IN",
+            {
+                day: "2-digit",
+                month: "short",
+                year: "numeric"
+            }
+        );
+
+    const time =
+        now.toLocaleTimeString();
+
+    document.getElementById("clock").innerHTML =
+        "📅 " + date + " | 🕐 " + time;
+
+}
+
+setInterval(updateClock,1000);
+
+updateClock();
+
+
+
+/* =========================================================
+   DARK MODE
+========================================================= */
+
+function toggleDarkMode() {
+
+    document.body.classList.toggle("dark");
+
+    if (
+        document.body.classList.contains("dark")
+    ) {
+
+        localStorage.setItem(
+            "darkMode",
+            "enabled"
+        );
+
+    }
+
+    else {
+
+        localStorage.setItem(
+            "darkMode",
+            "disabled"
+        );
+
+    }
+
+}
+
+
+if (
+    localStorage.getItem("darkMode")
+    ===
+    "enabled"
+) {
+
+    document.body.classList.add("dark");
+
+}
+
+
+
+/* =========================================================
+   FAVORITES
+========================================================= */
+
+let favoriteNumber = 0;
+
+
+function favorite(button) {
+
+    if (
+        button.innerHTML.trim()
+        ===
+        "☆"
+    ) {
+
+        button.innerHTML = "⭐";
+
+        favoriteNumber++;
+
+    }
+
+    else {
+
+        button.innerHTML = "☆";
+
+        favoriteNumber--;
+
+    }
+
+
+    document.getElementById(
+        "favoriteCount"
+    ).innerText =
+        favoriteNumber;
+
+}
+
+
+
+/* =========================================================
+   MODULE SEARCH
+========================================================= */
+
+function filterModules() {
+
+    const search =
+        document
+        .getElementById("moduleSearch")
+        .value
+        .toLowerCase();
+
+
+    const cards =
+        document.querySelectorAll(
+            ".module-card"
+        );
+
+
+    cards.forEach(
+        function(card) {
+
+            const text =
+                card.innerText
+                .toLowerCase();
+
+
+            if (
+                text.includes(search)
+            ) {
+
+                card.style.display =
+                    "block";
+
+            }
+
+            else {
+
+                card.style.display =
+                    "none";
+
+            }
+
+        }
+    );
+
+}
+
+
+
+/* =========================================================
+   LAB SEARCH
+========================================================= */
+
+function filterLabs() {
+
+    const search =
+        document
+        .getElementById("labSearch")
+        .value
+        .toLowerCase();
+
+
+    const cards =
+        document.querySelectorAll(
+            ".lab-card"
+        );
+
+
+    cards.forEach(
+        function(card) {
+
+            const text =
+                card.innerText
+                .toLowerCase();
+
+
+            if (
+                text.includes(search)
+            ) {
+
+                card.style.display =
+                    "block";
+
+            }
+
+            else {
+
+                card.style.display =
+                    "none";
+
+            }
+
+        }
+    );
+
+}
+
+
+
+/* =========================================================
+   GLOBAL SEARCH
+========================================================= */
+
+function globalSearchFunction() {
+
+    const search =
+        document
+        .getElementById("globalSearch")
+        .value
+        .toLowerCase();
+
+
+    const allCards =
+        document.querySelectorAll(
+            ".module-card, .lab-card, .resource, .tool-card"
+        );
+
+
+    allCards.forEach(
+        function(card) {
+
+            const text =
+                card.innerText
+                .toLowerCase();
+
+
+            if (
+                text.includes(search)
+                ||
+                search === ""
+            ) {
+
+                card.style.display =
+                    "";
+
+            }
+
+            else {
+
+                card.style.display =
+                    "none";
+
+            }
+
+        }
+    );
+
+}
+
+
+
+/* =========================================================
+   CALCULATOR
+========================================================= */
+
+function showCalculator() {
+
+    const calculator =
+        document.getElementById(
+            "calculatorSection"
+        );
+
+
+    calculator.style.display =
+        "block";
+
+
+    calculator.scrollIntoView({
+        behavior: "smooth"
+    });
+
+}
+
+
+function addCalc(value) {
+
+    document.getElementById(
+        "calcDisplay"
+    ).value += value;
+
+}
+
+
+function clearCalc() {
+
+    document.getElementById(
+        "calcDisplay"
+    ).value = "";
+
+}
+
+
+function deleteCalc() {
+
+    let display =
+        document.getElementById(
+            "calcDisplay"
+        );
+
+
+    display.value =
+        display.value.slice(0,-1);
+
+}
+
+
+function calculate() {
+
+    let display =
+        document.getElementById(
+            "calcDisplay"
+        );
+
+
+    try {
+
+        display.value =
+            eval(display.value);
+
+    }
+
+    catch {
+
+        display.value =
+            "Error";
+
+    }
+
+}
+
+
+
+/* =========================================================
+   STUDY TIMER
+========================================================= */
+
+let timeLeft = 25 * 60;
+
+let timerInterval = null;
+
+
+function updateTimerDisplay() {
+
+    let minutes =
+        Math.floor(
+            timeLeft / 60
+        );
+
+    let seconds =
+        timeLeft % 60;
+
+
+    document.getElementById(
+        "timerDisplay"
+    ).innerText =
+
+        String(minutes)
+        .padStart(2,"0")
+        +
+        ":"
+        +
+        String(seconds)
+        .padStart(2,"0");
+
+}
+
+
+function startTimer() {
+
+    if (timerInterval !== null) {
+
+        return;
+
+    }
+
+
+    timerInterval =
+        setInterval(
+            function() {
+
+                if (timeLeft > 0) {
+
+                    timeLeft--;
+
+                    updateTimerDisplay();
+
+                }
+
+                else {
+
+                    clearInterval(
+                        timerInterval
+                    );
+
+                    timerInterval = null;
+
+                    alert(
+                        "🎉 Study session completed!"
+                    );
+
+                }
+
+            },
+            1000
+        );
+
+}
+
+
+function pauseTimer() {
+
+    clearInterval(
+        timerInterval
+    );
+
+    timerInterval = null;
+
+}
+
+
+function resetTimer() {
+
+    pauseTimer();
+
+    timeLeft = 25 * 60;
+
+    updateTimerDisplay();
+
+}
+
+
+updateTimerDisplay();
+
+
+
+/* =========================================================
+   TODO LIST
+========================================================= */
+
+let tasks =
+    JSON.parse(
+        localStorage.getItem("tasks")
+    )
+    ||
+    [];
+
+
+function displayTasks() {
+
+    const list =
+        document.getElementById(
+            "taskList"
+        );
+
+
+    list.innerHTML = "";
+
+
+    tasks.forEach(
+        function(task,index) {
+
+            const li =
+                document.createElement("li");
+
+
+            li.innerHTML = `
+
+                <span>
+                    ${task}
+                </span>
+
+                <button
+                    onclick="deleteTask(${index})">
+
+                    Delete
+
+                </button>
+
+            `;
+
+
+            list.appendChild(li);
+
+        }
+    );
+
+}
+
+
+function addTask() {
+
+    const input =
+        document.getElementById(
+            "taskInput"
+        );
+
+
+    const task =
+        input.value.trim();
+
+
+    if (task === "") {
+
+        alert(
+            "Please enter a task."
+        );
+
+        return;
+
+    }
+
+
+    tasks.push(task);
+
+
+    localStorage.setItem(
+        "tasks",
+        JSON.stringify(tasks)
+    );
+
+
+    input.value = "";
+
+
+    displayTasks();
+
+}
+
+
+function deleteTask(index) {
+
+    tasks.splice(
+        index,
+        1
+    );
+
+
+    localStorage.setItem(
+        "tasks",
+        JSON.stringify(tasks)
+    );
+
+
+    displayTasks();
+
+}
+
+
+displayTasks();
+
+
+
+/* =========================================================
+   NOTES
+========================================================= */
+
+const notesArea =
+    document.getElementById(
+        "notesArea"
+    );
+
+
+notesArea.value =
+    localStorage.getItem(
+        "studentNotes"
+    )
+    ||
+    "";
+
+
+function saveNotes() {
+
+    localStorage.setItem(
+        "studentNotes",
+        notesArea.value
+    );
+
+
+    document.getElementById(
+        "notesMessage"
+    ).innerText =
+        "✅ Notes saved successfully!";
+
+}
+
+
+function clearNotes() {
+
+    if (
+        confirm(
+            "Are you sure you want to clear your notes?"
+        )
+    ) {
+
+        notesArea.value = "";
+
+        localStorage.removeItem(
+            "studentNotes"
+        );
+
+
+        document.getElementById(
+            "notesMessage"
+        ).innerText =
+            "Notes cleared.";
+
+    }
+
+}
+
+
+
+/* =========================================================
+   EXPERIMENT VIEWER
+========================================================= */
+
+function showExperiment(number) {
+
+    const viewer =
+        document.getElementById(
+            "experimentViewer"
+        );
+
+
+    const content =
+        document.getElementById(
+            "experimentContent"
+        );
+
+
+    viewer.style.display =
+        "block";
+
+
+    /* =====================================================
+       EXPERIMENT 6
+    ===================================================== */
+
+    if (number === 6) {
+
+        content.innerHTML = `
+
+            <h2>
+                🧪 Experiment 6 -
+                Time Series Analysis
+            </h2>
+
+            <p>
+                Select a sub-experiment below
+                to view its details.
+            </p>
+
+
+            <div class="subexperiment-menu">
+
+                <button
+                    class="subexperiment-btn"
+                    onclick="showSubExperiment(1)">
+
+                    1. Create Time Series
+
+                </button>
+
+
+                <button
+                    class="subexperiment-btn"
+                    onclick="showSubExperiment(2)">
+
+                    2. DatetimeIndex
+
+                </button>
+
+
+                <button
+                    class="subexperiment-btn"
+                    onclick="showSubExperiment(3)">
+
+                    3. Time Zone Operations
+
+                </button>
+
+
+                <button
+                    class="subexperiment-btn"
+                    onclick="showSubExperiment(4)">
+
+                    4. Period Arithmetic
+
+                </button>
+
+
+                <button
+                    class="subexperiment-btn"
+                    onclick="showSubExperiment(5)">
+
+                    5. Period Conversion
+
+                </button>
+
+
+                <button
+                    class="subexperiment-btn"
+                    onclick="showSubExperiment(6)">
+
+                    6. Series/DataFrame to Periods
+
+                </button>
+
+
+                <button
+                    class="subexperiment-btn"
+                    onclick="showSubExperiment(7)">
+
+                    7. Resampling
+
+                </button>
+
+            </div>
+
+
+            <!-- SUB 1 -->
+
+            <div
+                id="sub1"
+                class="subexperiment-content">
+
+                <h3>
+                    1. Create Time Series
+                </h3>
+
+                <h4>
+                    Aim
+                </h4>
+
+                <p>
+                    To create a basic time series
+                    using Pandas.
+                </p>
+
+                <h4>
+                    Program
+                </h4>
+
+                <pre>
+import pandas as pd
+
+dates = pd.to_datetime([
+    "2024-01-01",
+    "2024-01-02",
+    "2024-01-03"
+])
+
+values = [10, 20, 30]
+
+series = pd.Series(
+    values,
+    index=dates
+)
+
+print(series)
+                </pre>
+
+                <h4>
+                    Output
+                </h4>
+
+                <div class="output">
+2024-01-01    10
+2024-01-02    20
+2024-01-03    30
+dtype: int64
+                </div>
+
+                <h4>
+                    Result
+                </h4>
+
+                <p>
+                    A time series was successfully
+                    created using Pandas.
+                </p>
+
+            </div>
+
+
+            <!-- SUB 2 -->
+
+            <div
+                id="sub2"
+                class="subexperiment-content">
+
+                <h3>
+                    2. Generate DatetimeIndex
+                    using date_range()
+                </h3>
+
+                <h4>
+                    Aim
+                </h4>
+
+                <p>
+                    To generate a DatetimeIndex
+                    using Pandas date_range().
+                </p>
+
+                <h4>
+                    Program
+                </h4>
+
+                <pre>
+import pandas as pd
+
+dates = pd.date_range(
+    start="2024-01-01",
+    periods=5,
+    freq="D"
+)
+
+print(dates)
+                </pre>
+
+                <h4>
+                    Output
+                </h4>
+
+                <div class="output">
+DatetimeIndex([
+'2024-01-01',
+'2024-01-02',
+'2024-01-03',
+'2024-01-04',
+'2024-01-05'
+], dtype='datetime64[ns]', freq='D')
+                </div>
+
+            </div>
+
+
+            <!-- SUB 3 -->
+
+            <div
+                id="sub3"
+                class="subexperiment-content">
+
+                <h3>
+                    3. Time Zone Operations
+                </h3>
+
+                <h4>
+                    Aim
+                </h4>
+
+                <p>
+                    To perform time zone operations
+                    using Pandas.
+                </p>
+
+                <h4>
+                    Program
+                </h4>
+
+                <pre>
+import pandas as pd
+
+dates = pd.date_range(
+    "2024-01-01",
+    periods=3,
+    freq="D",
+    tz="Asia/Kolkata"
+)
+
+print(dates)
+
+naive_dates = pd.date_range(
+    "2024-01-01",
+    periods=3,
+    freq="D"
+)
+
+localized_dates =
+    naive_dates.tz_localize(
+        "Asia/Kolkata"
+    )
+
+print(localized_dates)
+
+new_york_dates =
+    localized_dates.tz_convert(
+        "America/New_York"
+    )
+
+print(new_york_dates)
+                </pre>
+
+                <h4>
+                    Result
+                </h4>
+
+                <p>
+                    Time zone localization and
+                    conversion were performed.
+                </p>
+
+            </div>
+
+
+            <!-- SUB 4 -->
+
+            <div
+                id="sub4"
+                class="subexperiment-content">
+
+                <h3>
+                    4. Period Arithmetic
+                </h3>
+
+                <h4>
+                    Aim
+                </h4>
+
+                <p>
+                    To perform arithmetic operations
+                    on Pandas Period objects.
+                </p>
+
+                <pre>
+import pandas as pd
+
+period = pd.Period(
+    "2024-01",
+    freq="M"
+)
+
+print(
+    "Original:",
+    period
+)
+
+print(
+    "After adding 2:",
+    period + 2
+)
+
+print(
+    "After subtracting 1:",
+    period - 1
+)
+
+periods = pd.period_range(
+    start="2024-01",
+    periods=5,
+    freq="M"
+)
+
+print(periods)
+                </pre>
+
+            </div>
+
+
+            <!-- SUB 5 -->
+
+            <div
+                id="sub5"
+                class="subexperiment-content">
+
+                <h3>
+                    5. Period Conversion
+                    using asfreq()
+                </h3>
+
+                <h4>
+                    Aim
+                </h4>
+
+                <p>
+                    To convert the frequency of
+                    a Period using asfreq().
+                </p>
+
+                <pre>
+import pandas as pd
+
+period = pd.Period(
+    "2024",
+    freq="Y"
+)
+
+print("Original:", period)
+
+print(
+    "Month:",
+    period.asfreq("M")
+)
+
+print(
+    "Day:",
+    period.asfreq("D")
+)
+                </pre>
+
+            </div>
+
+
+            <!-- SUB 6 -->
+
+            <div
+                id="sub6"
+                class="subexperiment-content">
+
+                <h3>
+                    6. Series/DataFrame to Periods
+                </h3>
+
+                <h4>
+                    Aim
+                </h4>
+
+                <p>
+                    To convert a time series index
+                    into periods using to_period().
+                </p>
+
+                <pre>
+import pandas as pd
+
+dates = pd.date_range(
+    "2024-01-01",
+    periods=5,
+    freq="D"
+)
+
+data = pd.Series(
+    [10,20,30,40,50],
+    index=dates
+)
+
+period_series =
+    data.to_period("M")
+
+print(period_series)
+                </pre>
+
+            </div>
+
+
+            <!-- SUB 7 -->
+
+            <div
+                id="sub7"
+                class="subexperiment-content">
+
+                <h3>
+                    7. Resampling
+                </h3>
+
+                <h4>
+                    Aim
+                </h4>
+
+                <p>
+                    To perform resampling,
+                    downsampling and upsampling.
+                </p>
+
+                <pre>
+import pandas as pd
+
+dates = pd.date_range(
+    "2024-01-01",
+    periods=5,
+    freq="D"
+)
+
+data = pd.Series(
+    [10,20,30,40,50],
+    index=dates
+)
+
+print(data)
+
+print(
+    data.resample("2D").mean()
+)
+
+print(
+    data.resample("12H").asfreq()
+)
+
+print(
+    data.resample("12H").ffill()
+)
+                </pre>
+
+            </div>
+
+
+            <br>
+
+
+            <button
+                class="btn"
+                onclick="closeExperiment()">
+
+                ← Close Experiment
+
+            </button>
+
+        `;
+
+    }
+
+
+    else {
+
+        content.innerHTML = `
+
+            <h2>
+                🧪 Experiment ${number}
+            </h2>
+
+            <h3>
+                Data Science Laboratory
+            </h3>
+
+            <p>
+                This experiment page is ready
+                for your actual experiment
+                program and output.
+            </p>
+
+
+            <h3>
+                Aim
+            </h3>
+
+            <p>
+                To perform Data Science
+                practical Experiment ${number}.
+            </p>
+
+
+            <h3>
+                Program
+            </h3>
+
+            <pre>
+# Add your Experiment ${number}
+# Python program here
+            </pre>
+
+
+            <h3>
+                Output
+            </h3>
+
+            <div class="output">
+Output will be displayed here.
+            </div>
+
+
+            <br>
+
+
+            <button
+                class="btn"
+                onclick="closeExperiment()">
+
+                ← Close Experiment
+
+            </button>
+
+        `;
+
+    }
+
+
+    viewer.scrollIntoView({
+        behavior: "smooth"
+    });
+
+}
+
+
+
+function showSubExperiment(number) {
+
+    const all =
+        document.querySelectorAll(
+            ".subexperiment-content"
+        );
+
+
+    all.forEach(
+        function(item) {
+
+            item.classList.remove(
+                "active"
+            );
+
+        }
+    );
+
+
+    const selected =
+        document.getElementById(
+            "sub" + number
+        );
+
+
+    if (selected) {
+
+        selected.classList.add(
+            "active"
+        );
+
+
+        selected.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+
+    }
+
+}
+
+
+
+function closeExperiment() {
+
+    document.getElementById(
+        "experimentViewer"
+    ).style.display = "none";
+
+
+    document.getElementById(
+        "lab"
+    ).scrollIntoView({
+        behavior: "smooth"
+    });
+
+}
+
+
+
+/* =========================================================
+   BACK TO TOP
+========================================================= */
+
+window.addEventListener(
+    "scroll",
+    function() {
+
+        const button =
+            document.getElementById(
+                "topButton"
+            );
+
+
+        if (
+            window.scrollY > 400
+        ) {
+
+            button.style.display =
+                "block";
+
+        }
+
+        else {
+
+            button.style.display =
+                "none";
+
+        }
+
+    }
+);
+
+
+</script>
+
+
+</body>
+
+</html>
